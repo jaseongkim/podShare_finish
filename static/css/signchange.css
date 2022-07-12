@@ -1,0 +1,135 @@
+.text-grey {
+  color: #a5a0a0;
+  font-size: 15px;
+}
+
+.text-green {
+  color: #4bc474;
+  font-size: 15px;
+}
+
+.text-red {
+  color: #ff5959;
+  font-size: 15px;
+}
+
+html {
+  font-family: 'Arial', sans-serif;
+  height: 100vh;
+  background-image: url("/static/img/background.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+html .back {
+  color: white;
+  font-size: 70px;
+  position: fixed;
+  right: 30px;
+  top: 20px;
+}
+
+html .back:hover {
+  color: #8a909e;
+  cursor: pointer;
+}
+
+html .signup {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  height: 80vh;
+  max-height: 800px;
+  background: black;
+  opacity: 0.8;
+  border-radius: 20px;
+  color: white;
+}
+
+.signup div {
+  margin-left: 50px;
+  font-size: 20px;
+  width: 400px;
+  height: 100px;
+}
+
+.signup input::placeholder {
+  color: #9b9999;
+}
+
+.signup input[type="text"] {
+  color: white;
+  background-color: #343434;
+  width: 100%;
+  height: 50px;
+  font-size: 20px;
+  border: none;
+  border-radius: 5px;
+}
+
+.signup input[type="password"] {
+  color: white;
+  background-color: #343434;
+  width: 100%;
+  height: 50px;
+  font-size: 20px;
+  border: none;
+  border-radius: 5px;
+}
+
+.signup .title {
+  font-weight: 500;
+}
+
+.signup .id input[type="text"] {
+  left: 0;
+  width: 400px;
+}
+
+.signup .id button {
+  font-size: 15px;
+  right: 0;
+  width: 95px;
+  height: 50px;
+  border-radius: 5px;
+  background-color: #a0d1ff;
+}
+
+.signup .id button:hover {
+  background-color: #005e89;
+  color: white;
+  cursor: pointer;
+}
+
+.signup .submit button {
+  width: 100%;
+  height: 50px;
+  font-size: 20px;
+  border-radius: 5px;
+  background-color: #a0d1ff;
+}
+
+.signup .submit button:hover {
+  background-color: #005e89;
+  color: white;
+  cursor: pointer;
+}
+
+.signup .delete button {
+  width: 100%;
+  height: 50px;
+  font-size: 20px;
+  border-radius: 5px;
+  background-color: #ed9a9a;
+}
+
+.signup .delete button:hover {
+  background-color: #ff0000;
+  color: white;
+  cursor: pointer;
+}

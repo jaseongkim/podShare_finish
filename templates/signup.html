@@ -1,10 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="/static/css/signup.css">
+  <title>회원가입</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="/static/js/signup.js"></script>
 </head>
 <body>
-
+<div class="container">
+  <div class="signup">
+    <div class="title">
+      <h1>회원가입</h1>
+    </div>
+    <div class="id">
+      <input id="id-value" type="text" placeholder="아이디"/>
+      <button id="dup-check">중복검사</button>
+      <span class="id-span text-grey">아이디는 4-10자의 문자만 입력 가능합니다.</span>
+    </div>
+    <div>
+      <input id="password-value" type="password" placeholder="비밀번호"/>
+      <span class="password-span text-grey">비밀번호는 10자 이상의 문자만 입력 가능합니다.</span>
+    </div>
+    <div>
+      <input id="re-password-value" type="password" placeholder="비밀번호 재입력"/>
+      <span class="re-password-span text-grey"></span>
+    </div>
+    <div>
+      <input id="email-value" type="text" placeholder="이메일"/>
+      <span class="email-span text-grey">이메일 형식에 맞춰 입력 해주세요.</span>
+    </div>
+    <div>
+      <input id="phone-value" type="text" placeholder="전화번호"/>
+      <span class="phone-span text-grey">숫자만 입력 가능합니다.</span>
+    </div>
+    <div class="gender">
+      <input type="radio" name="gender" id="man"/>
+      <label for="man">남자 🙋‍♂️</label>
+      <input type="radio" name="gender" id="woman"/>
+      <label for="woman">여자 🙋‍♀️</label>
+      <div>
+        <span class="gender-span text-grey"></span>
+      </div>
+    </div>
+    <div class="submit">
+      <button id="submit-button">가입</button>
+    </div>
+  </div>
+</div>
 </body>
+<script>
+</script>
 </html>
