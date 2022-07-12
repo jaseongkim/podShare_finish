@@ -42,8 +42,9 @@ html .signup {
   margin-left: 50px;
   font-size: 20px;
   width: 400px;
-  height: 100px;
+  height: 10vh;
 }
+
 
 .signup input::placeholder {
   color: #9b9999;
