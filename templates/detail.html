@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    <link href="ht  tps://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -110,7 +110,9 @@
             top: 15px;
             position: absolute;
             color: #0094eb;
-            font-weight: 900;
+            font-family: "Spoqa Han Sans Neo", "sans-serif";
+            -webkit-text-size-adjust: 100%;
+            -webkit-font-smoothing: antialiased;
         }
 
         .dp_info_title2 {
@@ -120,7 +122,9 @@
             top: 40px;
             position: absolute;
             color: white;
-            font-weight: 900;
+            font-family: "Spoqa Han Sans Neo", "sans-serif";
+            -webkit-text-size-adjust: 100%;
+            -webkit-font-smoothing: antialiased;
         }
 
         .dp_info_box {
@@ -132,6 +136,9 @@
             font-size: 15px;
             color: #8a909e;
             position: absolute;
+            font-family: "Spoqa Han Sans Neo", "sans-serif";
+            -webkit-text-size-adjust: 100%;
+            -webkit-font-smoothing: antialiased;
         }
 
         .dp_info_date {
@@ -214,107 +221,43 @@
         <div class="dp_center">
             <div class="dp_img">
                 <div class="dp_img_picture">
-                    <img src="https://img.podbbang.com/pbi/p/640/375/12548.jpg">
+                    <img src="{{ detailget.image }}">
                 </div>
             </div>
             <div class="dp_audio">
                 <div class="dp_audio_box">
-                    <audio src="https://file.ssenhosting.com/data1/tbsadm/nf220711002.mp3?cmad=2f64617461312f74627361646d2f6e663232303731313030325f6133312e6d7033"
+                    <audio src="{{ detailget.audio }}"
                            loop controls id="myAudio">오디오 지원되지 않는 브라우저
                     </audio>
                 </div>
             </div>
             <div class="dp_info">
                 <div class="dp_info_title1">
-                    <h6><b>TBS 김어준의 뉴스공장</b></h6>
+                    <h6><b>{{ detailget.comment }}</b></h6>
                 </div>
                 <div class="dp_info_title2">
-                    <h5><b>0711 뉴스공장 3-4부(김성천,한정화,이강윤)</b></h5>
+                    <h5><b>{{ detailget.title }}</b></h5>
                 </div>
                 <div class="dp_info_box">
                     <div class="dp_info_date">
-                        <p>22.07.11</p>
+                        <p>{{ detailget.date }}</p>
                     </div>
                     <div class="dp_info_dot">
                         <p>•</p>
                     </div>
                     <div class="dp_info_playtime">
-                        <p>43분</p>
+                        <p>{{ detailget.playtime }}</p>
                     </div>
                     <div class="dp_info_dot">
                         <p>•</p>
                     </div>
                     <div class="dp_info_like">
-                        <p>좋아요 881</p>
+                        <p>{{ detailget.like }}</p>
                     </div>
                 </div>
                 <div class="dp_info_article">
                     <div class="content">
-                        ◎ 1부
-
-                        [이 정도는 알아야 할 아침 뉴스]
-
-                        - 류밀희 기자 (TBS)
-
-
-                        [잠깐만 인터뷰] -전화연결
-
-                        확진자 ‘더블링’.. 코로나19 재유행 임박
-
-                        “변이 영향.. 8-9월 최대 20만 명 예상돼”
-
-                        - 이재갑 교수 (한림대학교 강남성심병원 감염내과)
-
-
-                        ◎ 2부
-
-                        [인터뷰 제1공장] -전화연결
-
-                        아베 전 총리 피습 사망.. 日 현지 상황은?
-
-                        "비정치적 목적임을 강조하며 아베 영웅화"
-
-                        - 이영채 교수 (일본 게이센여학원대)
-
-
-                        [인터뷰 제2공장]
-
-                        아베 사망.. 향후 日정국과 한일관계 전망은?
-
-                        “아베파 분열 가능성.. 극우 추진력 떨어질 것”
-
-                        - 호사카 유지 대우교수 (세종대, 독도종합연구소장)
-
-
-                        ◎ 3부
-
-                        [인터뷰 제3공장]
-
-                        정부, 유·초·중·고 교부금 '3조' 대학에 지원
-
-                        "공교육 후퇴하고 저출산 심화할 것"
-
-                        - 김성천 교수 (한국교원대 교육정책학과)
-
-
-                        ◎ 4부
-
-                        [인터뷰 제4공장] -전화연결
-
-                        한국 극우의 베를린 소녀상 철거 시위 그후
-
-                        "소녀상 지킴이 된 독일 국민들.. 대학도 영구설치"
-
-                        - 한정화 대표 (코리아협의회)
-
-
-                        [그것마저 알려주마]
-
-                        취임 두 달째 尹대통령 국정운영 평가
-
-                        &amp; 이준석 '당원권 정지 6개월 징계' 여론은?
-
-                        - 이강윤 소장 (한국사회여론연구소)
+                        {{ detailget.content }}"
                     </div>
                 </div>
             </div>
