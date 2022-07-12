@@ -1,18 +1,15 @@
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for  # 기본 라이브러리들
 from pymongo import MongoClient  # 디비 연결 라이브러리
 import certifi
-<<<<<<< HEAD
 import detail
 
 import requests
 from bs4 import BeautifulSoup
-=======
 import hashlib
 import datetime
 import jwt
 
 SECRET_KEY = 'SPARTA'
->>>>>>> e280cfa6a98241fec7bc025511f2292edada7ad5
 
 ca = certifi.where()
 client = MongoClient('mongodb+srv://test:sparta@cluster0.u82lpnm.mongodb.net/Cluster0?retryWrites=true&w=majority',
@@ -26,7 +23,6 @@ app = Flask(__name__)
 def home():
     return render_template('index.html')
 
-<<<<<<< HEAD
 #이재혁님 프로그램
 @app.route('/detail')
 def podcast_detial():
@@ -71,7 +67,6 @@ def deleteRow():
     comment_receive = request.form['comment_give']
     db.podshare.delete_one({'comment': comment_receive})
     return jsonify({'msg': '삭제 완료!'})
-=======
 
 @app.route('/signin')
 def signin():
@@ -205,7 +200,6 @@ def deleteAccount():
 
     return jsonify(({'msg': '탈퇴 완료.'}))
 
->>>>>>> e280cfa6a98241fec7bc025511f2292edada7ad5
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
