@@ -17,8 +17,6 @@ client = MongoClient('mongodb+srv://test:sparta@cluster0.u82lpnm.mongodb.net/Clu
 db = client.db8bteam4
 app = Flask(__name__)
 
-
-
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -26,18 +24,17 @@ def home():
 #이재혁님 프로그램
 @app.route('/detail')
 def podcast_detial():
+
     card_num = request.args.get('card_num')
     detailget = detail.podcastPage(card_num)
     print(detailget)
-    return render_template('detail.html',detailget=detailget)
+    return render_template('detail.html', detailget = detailget)
 
 #김은경님 프로그램
 @app.route("/podcast", methods=["POST"])
 def podcast_post():
     url_receive = request.form['url_give']
     comment_receive = request.form['comment_give']
-
-    url = 'https://www.podbbang.com/channels/12548/episodes/24396721'
 
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
@@ -67,39 +64,6 @@ def deleteRow():
     comment_receive = request.form['comment_give']
     db.podshare.delete_one({'comment': comment_receive})
     return jsonify({'msg': '삭제 완료!'})
-
-@app.route('/signin')
-def signin():
-    return render_template('signin.html')
-
-
-@app.route('/api/login', methods=['POST'])
-def login_post():
-    userId_receive = request.form['userId_give']
-    userPw_receive = request.form['userPw_give']
-
-    pw_hash = hashlib.sha256(userPw_receive.encode('utf-8')).hexdigest()
-
-    result = db.account.find_one({'id': userId_receive, 'password': pw_hash})
-
-    print(userId_receive, userPw_receive, pw_hash, result)
-
-    if result is not None:
-
-        payload = {
-            'id': userId_receive,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1)
-        }
-        token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
-
-        print(token)
-
-        # token을 줍니다.
-        return jsonify({'result': 'success', 'token': token})
-    # 찾지 못하면
-    else:
-        return jsonify({'result': 'fail', 'msg': "아이디/비밀번호가 일치하지 않습니다."})
-
 
 @app.route('/signup')
 def signup():
@@ -199,6 +163,72 @@ def deleteAccount():
     db.account.delete_one({'id': id})
 
     return jsonify(({'msg': '탈퇴 완료.'}))
+
+##################################################################################################
+# 로그인 / 댓글 시작
+# 로그인
+@app.route('/signin')
+def signin():
+    return render_template('signin.html')
+
+
+@app.route('/api/login', methods=['POST'])
+def login_post():
+    userId_receive = request.form['userId_give']
+    userPw_receive = request.form['userPw_give']
+
+    pw_hash = hashlib.sha256(userPw_receive.encode('utf-8')).hexdigest()
+
+    result = db.account.find_one({'id': userId_receive, 'password': pw_hash})
+
+    if result is not None:
+
+        payload = {
+            'id': userId_receive,
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1)
+        }
+        token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
+
+        # token을 줍니다.
+        return jsonify({'result': 'success', 'token': token})
+    # 찾지 못하면
+    else:
+        return jsonify({'result': 'fail', 'msg': "아이디/비밀번호가 일치하지 않습니다."})
+
+
+#  댓글
+@app.route("/reply", methods=["GET"])
+def reply_get():
+
+    all_list = list(db.replydb.find({}, {'_id': False}))
+
+    return jsonify({'list': all_list})
+
+@app.route("/reply", methods=["POST"])
+def reply_post():
+
+    token_receive = request.cookies.get('mytoken')
+    reply_receive = request.form['reply_give']
+
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.account.find_one({"id": payload['id']})
+
+        doc = {
+            "id" : user_info["id"],
+            "reply": reply_receive
+        }
+
+        db.replydb.insert_one(doc)
+
+        return jsonify({'msg':'등록 완료!'})
+    except jwt.ExpiredSignatureError:
+        return jsonify({'msg': "로그인 시간이 만료되었습니다."})
+    except jwt.exceptions.DecodeError:
+        return jsonify({'msg': "로그인 정보가 없습니다."})
+
+
+# 로그인 / 댓글 끝
 
 
 if __name__ == '__main__':

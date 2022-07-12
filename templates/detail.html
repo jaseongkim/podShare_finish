@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link href="ht  tps://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
@@ -198,17 +199,100 @@
 
         .dp_reply {
             width: 500px;
-            height: 1000px;
-            background-color: gold;
+            /*height: 1000px;*/ /*스크롤 바 생성을 위해 삭제*/
             left: 700px;
             top: 200px;
             position: absolute;
         }
+
+         /* 댓글 CSS */
+        .reply {
+            width: 95%;
+            max-width: 500px;
+            margin: 20px auto 20px auto;
+
+            box-shadow: 0px 0px 3px 0px black;
+            padding: 20px;
+        }
+
+        .reply > button {
+            margin-top: 15px;
+        }
+
+        .mycards {
+            width: 95%;
+            height: 300px;
+            max-width: 500px;
+            margin: auto;
+            overflow-y: auto;
+        }
+
+        .mycards > .card {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+         /* 댓글 CSS 끝*/
+
+
         .dp_bottom {
 
         }
     </style>
     <script>
+         /* 댓글 script */
+
+        $(document).ready(function(){
+            show_reply()
+        });
+
+        function save_reply(){
+
+            let reply = $('#reply').val()
+
+            if(reply == ""){
+                alert("다시 입력해주세요.")
+            } else {
+                $.ajax({
+                    type: 'POST',
+                    url: '/reply',
+                    data: {reply_give : reply},
+                    success: function (response) {
+                        alert(response['msg'])
+                        window.location.reload()
+                    }
+                })
+            }
+        }
+
+        function show_reply() {
+            $.ajax({
+                type: "GET",
+                url: "/reply",
+                data: {},
+                success: function (response) {
+
+                    let rows = response["list"]
+
+                    for (let i = 0; i < rows.length; i++) {
+
+                        let userId = rows[i]['id']
+                        let reply = rows[i]['reply']
+
+                        let temp_html = `<div class="card">
+                                                <div class="card-body">
+                                                    <blockquote class="blockquote mb-0">
+                                                        <p>${reply}</p>
+                                                        <footer class="blockquote-footer">${userId}</footer>
+                                                    </blockquote>
+                                                </div>
+                                            </div>`
+                        $('#reply-list').append(temp_html)
+                    }
+                }
+            })
+        }
+        /* 댓글 script 끝 */
+
     </script>
 </head>
 
@@ -261,8 +345,17 @@
                     </div>
                 </div>
             </div>
-            <div class="dp_reply">
-
+           <div class="dp_reply">
+                <div class="reply">
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="comment here" id="reply" style="height: 100px"></textarea>
+                        <label>댓글을 입력해주세요</label>
+                    </div>
+                    <button onclick="save_reply()" type="button" class="btn btn-dark">댓글 남기기</button>
+                </div>
+                <div class="mycards" id="reply-list">
+                    <!--댓글 들어가는 곳-->
+                </div>
             </div>
 
             <div class="dp_bottom">

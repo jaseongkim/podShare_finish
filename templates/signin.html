@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
@@ -33,7 +33,6 @@
             top: 50%;
             right: 50%;
             transform: translate(-0%, -50%);
-
 
             background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../static/img/background.jpg");
             background-position: center;
@@ -89,62 +88,56 @@
             border: 4px solid;
         }
     </style>
+
+
     <script>
          function loginBtn(){
 
             let userId = $('#userId').val()
             let userPw = $('#userPw').val()
-
-            $.ajax({
-                type: "POST",
-                url: "/api/login",
-                data: {userId_give: userId , userPw_give: userPw},
-                success: function (response) {
-                    if (response['result'] === 'success') {
-                        // 로그인이 정상적으로 되면, 토큰을 받아옵니다.
-                        // 이 토큰을 mytoken이라는 키 값으로 쿠키에 저장합니다.
-
-                        document.cookie
-                        $.cookie('mytoken', response['token']);
-                        alert('로그인 완료!')
-                        window.location.href = '/'
-                    } else {
-                        // 로그인이 안되면 에러메시지를 띄웁니다.
-                        alert(response['msg'])
+             if (userId == "" | userPw == "") {
+                 alert('다시 입력해주세요.')
+             } else {
+                $.ajax({
+                    type: "POST",
+                    url: "/api/login",
+                    data: {userId_give: userId , userPw_give: userPw},
+                    success: function (response) {
+                        if (response['result'] == 'success') {
+                            // 로그인이 정상적으로 되면, 토큰을 받아옵니다.
+                            // 이 토큰을 mytoken이라는 키 값으로 쿠키에 저장합니다.
+                             $.cookie('mytoken', response['token']);
+                             $.cookie("cookieName", "", { expires: -1 });
+                            alert('로그인 완료!')
+                            window.location.href = '/'
+                        } else {
+                            // 로그인이 안되면 에러메시지를 띄웁니다.
+                            alert(response['msg'])
+                        }
                     }
-                }
-            });
+                });
+             }
         }
 
         function signUpBtn(){
-
-            let bucket = $('#bucket').val()
-
-            $.ajax({
-                type: "POST",
-                url: "/bucket",
-                data: {bucket_give: bucket},
-                success: function (response) {
-                    alert(response["msg"])
-                    window.location.reload()
-                }
-            });
+            window.location.href = '/signup'
         }
-
-
-
     </script>
 
 
 </head>
 <body>
+
     <div class = pic>
+
     </div>
+
     <div class="box">
         <input id ="userId" type="text" placeholder="Username">
         <input id ="userPw" type="password" placeholder="Password">
         <button onclick="loginBtn()">로그인</button>
         <button onclick="signUpBtn()">회원가입</button>
     </div>
+
 </body>
 </html>
