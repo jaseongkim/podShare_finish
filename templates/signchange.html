@@ -1,10 +1,256 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>회원가입</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <style>
+    html {
+      font-family: 'Arial', sans-serif;
+      height: 100vh;
+      background-image: url("/static/img/image.jpg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-attachment: fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    html .back {
+      color: white;
+      font-size: 70px;
+      position: fixed;
+      right: 30px;
+      top: 20px;
+    }
+
+    html .back:hover {
+      color: #8a909e;
+      cursor: pointer;
+    }
+
+    html .signup {
+      display: flex;
+      flex-direction: column;
+      width: 500px;
+      height: 80vh;
+      max-height: 800px;
+      background: black;
+      opacity: 0.8;
+      border-radius: 20px;
+      color: white;
+    }
+
+    .signup div {
+      margin-left: 50px;
+      font-size: 20px;
+      width: 400px;
+      height: 100px;
+    }
+
+    .signup input::placeholder {
+      color: #9b9999;
+    }
+
+    .signup input[type="text"] {
+      color: white;
+      background-color: #343434;
+      width: 100%;
+      height: 50px;
+      font-size: 20px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .signup input[type="password"] {
+      color: white;
+      background-color: #343434;
+      width: 100%;
+      height: 50px;
+      font-size: 20px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .signup .title {
+      font-weight: 500;
+    }
+
+    .signup .id input[type="text"] {
+      left: 0;
+      width: 400px;
+    }
+
+    .signup .id button {
+      font-size: 15px;
+      right: 0;
+      width: 95px;
+      height: 50px;
+      border-radius: 5px;
+      background-color: #a0d1ff;
+    }
+
+    .signup .id button:hover {
+      background-color: #005e89;
+      color: white;
+      cursor: pointer;
+    }
+
+    .signup .submit button {
+      width: 100%;
+      height: 50px;
+      font-size: 20px;
+      border-radius: 5px;
+      background-color: #a0d1ff;
+    }
+
+    .signup .submit button:hover {
+      background-color: #000cff;
+      color: white;
+      cursor: pointer;
+    }
+
+    .signup .delete button {
+      width: 100%;
+      height: 50px;
+      font-size: 20px;
+      border-radius: 5px;
+      background-color: #ed9a9a;
+    }
+
+    .signup .delete button:hover {
+      background-color: #ff0000;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-
+<div class="back">
+X
+</div>
+<div class="container">
+  <div class="signup">
+    <div class="title">
+      <h1>개인정보 변경</h1>
+    </div>
+    <div class="id">
+      <input id="id-value" type="text" placeholder="아이디" value="{{ user.id }}" disabled/>
+    </div>
+    <div>
+      <input id="password-value" type="password" placeholder="비밀번호"/>
+    </div>
+    <div>
+      <input id="re-password-value" type="password" placeholder="비밀번호 재입력"/>
+    </div>
+    <div>
+      <input id="email-value" type="text" placeholder="이메일"/>
+    </div>
+    <div>
+      <input id="phone-value" type="text" placeholder="전화번호(숫자만 입력)"/>
+    </div>
+    <div class="submit">
+      <button id="submit-button">변경</button>
+    </div>
+    <div class="delete">
+      <button id="delete-button">회원 탈퇴</button>
+    </div>
+  </div>
+</div>
 </body>
+<script>
+  const regexpPhone = /\d/;
+  const regexpEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
+  const submitElement = document.querySelector('#submit-button');
+  const deleteElement = document.querySelector('#delete-button');
+  const backElement = document.querySelector('.back');
+
+  submitElement.addEventListener('click', modifyAccount)
+  deleteElement.addEventListener('click', deleteAccount)
+  backElement.addEventListener('click', () => {
+    window.location.href = '/';
+  })
+
+  function modifyAccount() {
+    if ($('#password-value').val() === ''
+        && $('#email-value').val() === ''
+        && $('#phone-value').val() === ''
+    ) {
+      alert('변경할 내용이 없습니다.');
+      return true;
+    }
+    if ($('#password-value').val() !== '') {
+      if ($('#password-value').val().length < 10) {
+        alert('비밀번호를 10자 이상 입력해주세요.');
+        $('#password-value').focus();
+        return true;
+      }
+
+      if ($('#password-value').val() !== $('#re-password-value').val()) {
+        alert('비밀번호를 확인해주세요.');
+        $('#password-value').focus();
+        return true;
+      }
+    }
+
+    if ($('#email-value').val() !== '') {
+      if (regexpEmail.test($('#email-value').val()) === false) {
+        alert('올바른 이메일을 입력해주세요.');
+        return true;
+      }
+    }
+
+    if ($('#phone-value').val() !== '') {
+      if (regexpPhone.test($('#phone-value').val()) === false || $('#phone-value').val().length < 10) {
+        alert('올바른 번호를 입력해주세요.');
+        return true;
+      }
+    }
+    $.ajax({
+      type: 'POST',
+      url: '/modifyaccount',
+      data: {
+        id: $('#id-value').val(),
+        password: $('#password-value').val(),
+        email: $('#email-value').val(),
+        phone: $('#phone-value').val(),
+      },
+      success: function (response) {
+        if (response['msg'] === '1') {
+          alert('기존 패스워드와 동일합니다.');
+        } else if (response['msg'] === '2') {
+          alert('기존 이메일과 동일합니다.');
+        } else if (response['msg'] === '3') {
+          alert('기존 전화번호와 동일합니다.');
+        } else {
+          alert(response['msg'])
+          window.location.href = '/';
+        }
+      }
+    })
+  }
+
+  function deleteAccount() {
+    if (!confirm('탈퇴 하시겠습니까?')) {
+      return true;
+    } else {
+      $.ajax({
+        type: 'POST',
+        url: '/deleteaccount',
+        data: {
+          id: $('#id-value').val()
+        },
+        success: function (response) {
+          alert(response['msg'])
+          window.location.href = '/';
+        }
+      })
+    }
+  }
+</script>
 </html>
