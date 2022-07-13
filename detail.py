@@ -10,7 +10,7 @@ app = Flask(__name__)
 #app.py > podcastPage card_num 요청
 #card_num int 자료형 변경
 def podcastPage(card_num):
-    type_change = int(card_num)
+    type_change = str(card_num)
     return podcastPage_get(type_change)
 
 def podcastPage_get(type_change):
