@@ -30,7 +30,7 @@
             background-size: contain;
             background-color: black;
             background-repeat: no-repeat;
-            cursor: pointer;
+
         }
         .banner > button {
             border: 0;
@@ -45,6 +45,7 @@
             color: white;
             border-radius: 20px;
             transition: 0.25s;
+            cursor: pointer;
         }
 
 
@@ -125,8 +126,9 @@
                     let rows = response['all_podcast']
                     for (let i = 0; i< rows.length; i++){
                         let comment = rows[i]['comment']
-                        let title = rows[i]['title']
+                        let epi_title = rows[i]['epi_title']
                         let image = rows[i]['image']
+                        let chan_title = rows[i]['chan_title']
 
 
 
@@ -135,7 +137,8 @@
                                     <img src="${image}"
                                          class="card-img-top">
                                     <div class="card-body">
-                                        <h5 class="card-title">"${title}"</h5>
+                                        <a href="/detail/?card_num"{{ num }}"><h5 class="card-title">"${epi_title}"</h5></a>
+                                        <p class="card-text">${chan_title}</p>
                                         <p class="mycomment">"${comment}"</p>
                                         <p><button type="button" class="btn btn-outline-dark" onclick="deleteRow('${comment}')">삭제</button></p>
                                     </div>
@@ -184,7 +187,7 @@
 
 <body>
 <div class="banner">
-    <button onclick="loginBtn()">로그인</button>
+    <button onclick="window.location.href ='/signin'">로그인</button>
 </div>
 <div class="wrap">
 <button onclick="open_box()">팟캐스트 기록하기</button>

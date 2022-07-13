@@ -10,16 +10,7 @@ import datetime
 import jwt
 from selenium import webdriver
 from time import sleep
-
-driver = webdriver.Chrome(r'./chromedriver')
-
-url = 'https://www.podbbang.com/channels/12548/episodes/24396721'
-
-driver.get(url)
-sleep(3)
-
-req = driver.page_source
-driver.quit()
+from selenium.webdriver.common.by import By
 
 SECRET_KEY = 'SPARTA'
 
@@ -53,25 +44,39 @@ def podcast_post():
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
     data = requests.get(url_receive, headers=headers)
+    
+    driver = webdriver.Chrome('./chromedriver')
+    driver.get(url_receive)
 
     soup = BeautifulSoup(data.text, 'html.parser')
-
+    soup_1 = BeautifulSoup(driver.page_source, 'html.parser')
+    
     image = soup.select_one('meta[property="og:image"]')['content']
-    title = soup.select_one('meta[property="og:title"]')['content']
-    description= soup.select_one('meta[property="og:description"]')['content']
-    date = soup.select_one('#__layout > section > section.app-container > section > section.content-wrapper > section.misc > span.published-at > b')
-    playtime = soup.select_one('#__layout > section > section.app-container > section > section.content-wrapper > section.misc > span.duration > b')
-    like = soup.select_one('#__layout > section > section.app-container > section > section.content-wrapper > section.misc > span.likes')
+    chan_title = soup_1.select_one('#__layout > section > section.app-container > section > section.content-wrapper > a').get_text()
+    epi_title = soup.select_one('meta[property="og:title"]')['content']
+    description = soup.select_one('meta[property="og:description"]')['content']
+    date = soup_1.select_one('#__layout > section > section.app-container > section > section.content-wrapper > section.misc > span.published-at > b').get_text()
+    playtime = soup_1.select_one('#__layout > section > section.app-container > section > section.content-wrapper > section.misc > span.duration > b').get_text()
+    like = soup_1.select_one('#__layout > section > section.app-container > section > section.content-wrapper > section.misc > span.likes > b').get_text()
+    audio_btn = driver.find_element(By.XPATH,'/html/body/div[1]/div/section/section[1]/section/section[1]/section[3]/button')
+    audio_btn.click()
+    driver.implicitly_wait(3)
+    audio = driver.find_element(By.XPATH, '/html/body/div[1]/div/section/section[2]/audio').get_attribute('src')
+    driver.quit()
 
     doc = {
         'comment':comment_receive,
-        'title':title,
+        'chan_title': chan_title,
+        'epi_title':epi_title,
         'image':image,
         'description':description,
         'date':date,
         'playtime':playtime,
-        'like':like
+        'like':like,
+        'audio':audio
     }
+
+
     db.podshare.insert_one(doc)
 
     return jsonify({'msg':'등록 완료!'})
