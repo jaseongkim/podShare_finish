@@ -11,7 +11,7 @@ import jwt
 from selenium import webdriver
 from time import sleep
 
-driver = webdriver.Chrome('./chromedriver')
+driver = webdriver.Chrome(r'./chromedriver')
 
 url = 'https://www.podbbang.com/channels/12548/episodes/24396721'
 
@@ -40,7 +40,7 @@ def podcast_detial():
     card_num = request.args.get('card_num')
     detailget = detail.podcastPage(card_num)
     print(detailget)
-    return render_template('detail.html', detailget = detailget)
+    return render_template('detail.html', detailget = detailget, card_num=card_num)
 
 #김은경님 프로그램
 @app.route("/podcast", methods=["POST"])
@@ -232,6 +232,7 @@ def reply_post():
 
     token_receive = request.cookies.get('mytoken')
     reply_receive = request.form['reply_give']
+    card_receive = request.form['card_give']
 
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
@@ -239,7 +240,8 @@ def reply_post():
 
         doc = {
             "id" : user_info["id"],
-            "reply": reply_receive
+            "reply": reply_receive,
+            "card_num": card_receive
         }
 
         db.replydb.insert_one(doc)
