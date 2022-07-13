@@ -24,7 +24,7 @@
                                                     <a href="/detail?card_num=${num}"> <h5 class="card-title">${epi_title}</h5></a>
                                                     <p class="card-text">${chan_title}</p>
                                                     <p class="mycomment">"${comment}"</p>
-                                                    <p><button type="button" class="btn btn-outline-dark" onclick="deleteRow('${comment}')">삭제</button></p>
+                                                    <p><button type="button" class="btn btn-outline-dark" onclick="deleteRow(${num})">삭제</button></p>
                                                </div>
                                             </div>
                                         </div>`
@@ -33,11 +33,11 @@
                 }
             })
         }
-        function deleteRow(comment) {
+        function deleteRow(num) {
                 $.ajax({
                     type: 'POST',
                     url: '/api/delete',
-                    data: {'comment_give':comment},
+                    data: {'num_give':num},
                     success: function (response) {
                         alert(response['msg']);
                         window.location.reload()
