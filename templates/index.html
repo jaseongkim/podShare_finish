@@ -130,21 +130,19 @@
                         let epi_title = rows[i]['epi_title']
                         let image = rows[i]['image']
                         let chan_title = rows[i]['chan_title']
-
-
+                        let num = row[i]['card_num']
 
                         let temp_html = `<div class="col">
-                                <div class="card h-100">
-                                    <img src="${image}"
-                                         class="card-img-top">
-                                    <div class="card-body">
-                                        <a href="/detail/?card_num"{{ num }}"><h5 class="card-title">"${epi_title}"</h5></a>
-                                        <p class="card-text">${chan_title}</p>
-                                        <p class="mycomment">"${comment}"</p>
-                                        <p><button type="button" class="btn btn-outline-dark" onclick="deleteRow('${comment}')">삭제</button></p>
-                                    </div>
-                                </div>
-                            </div>`
+                                            <div class="card h-100">
+                                                <img src="${image}" class="card-img-top">
+                                                <div class="card-body">
+                                                    <a href="/detail?card_num= ${num}"> <h5 class="card-title">${epi_title}</h5></a>
+                                                    <p class="card-text">${chan_title}</p>
+                                                    <p class="mycomment">"${comment}"</p>
+                                                    <p><button type="button" class="btn btn-outline-dark" onclick="deleteRow('${comment}')">삭제</button></p>
+                                               </div>
+                                            </div>
+                                        </div>`
                         $('#cards-box').append(temp_html)
                     }
                 }
@@ -203,7 +201,9 @@
     {% endif %}
 </div>
 <div class="wrap">
-<button onclick="open_box()">팟캐스트 기록하기</button>
+    {% if token_receive != None %}
+        <button onclick="open_box()">팟캐스트 기록하기</button>
+    {% endif %}
 <div class="mypost" id="post-box">
     <div class="form-floating mb-3">
         <input id="url" type="email" class="form-control" placeholder="name@example.com">

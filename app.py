@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 import hashlib
 import datetime
 import jwt
+import re
 from selenium import webdriver
 from time import sleep
 from selenium.webdriver.common.by import By
@@ -66,6 +67,8 @@ def podcast_post():
     driver.implicitly_wait(3)
     audio = driver.find_element(By.XPATH, '/html/body/div[1]/div/section/section[2]/audio').get_attribute('src')
     driver.quit()
+    card_num = url_receive.split("/")[-1]
+    print(card_num)
 
     doc = {
         'comment':comment_receive,
@@ -76,17 +79,20 @@ def podcast_post():
         'date':date,
         'playtime':playtime,
         'like':like,
-        'audio':audio
+        'audio':audio,
+        'card_num':card_num
     }
 
-
     db.podshare.insert_one(doc)
+
 
     return jsonify({'msg':'등록 완료!'})
 
 @app.route("/podcast", methods=["GET"])
 def podcast_get():
+
     podcast_list = list(db.podshare.find({}, {'_id': False}))
+
     return jsonify({'all_podcast':podcast_list})
 
 @app.route('/api/delete', methods=['POST'])
