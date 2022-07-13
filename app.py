@@ -52,9 +52,10 @@ def podcast_post():
     soup_1 = BeautifulSoup(driver.page_source, 'html.parser')
     
     image = soup.select_one('meta[property="og:image"]')['content']
-    chan_title = soup_1.select_one('#__layout > section > section.app-container > section > section.content-wrapper > a').get_text()
+    chan_title = soup_1.select_one('#__layout > section > section.app-container > section > section.content-wrapper > a').get_text().strip()
     epi_title = soup.select_one('meta[property="og:title"]')['content']
     description = soup.select_one('meta[property="og:description"]')['content']
+    new_des = re.sub(r"\s","",description)
     date = soup_1.select_one('#__layout > section > section.app-container > section > section.content-wrapper > section.misc > span.published-at > b').get_text()
     playtime = soup_1.select_one('#__layout > section > section.app-container > section > section.content-wrapper > section.misc > span.duration > b').get_text()
     like = soup_1.select_one('#__layout > section > section.app-container > section > section.content-wrapper > section.misc > span.likes > b').get_text()
@@ -69,7 +70,7 @@ def podcast_post():
         'chan_title': chan_title,
         'epi_title':epi_title,
         'image':image,
-        'description':description,
+        'description':new_des,
         'date':date,
         'playtime':playtime,
         'like':like,
