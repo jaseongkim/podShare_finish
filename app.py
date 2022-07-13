@@ -8,6 +8,18 @@ from bs4 import BeautifulSoup
 import hashlib
 import datetime
 import jwt
+from selenium import webdriver
+from time import sleep
+
+driver = webdriver.Chrome('./chromedriver')
+
+url = 'https://www.podbbang.com/channels/12548/episodes/24396721'
+
+driver.get(url)
+sleep(3)
+
+req = driver.page_source
+driver.quit()
 
 SECRET_KEY = 'SPARTA'
 
@@ -36,6 +48,8 @@ def podcast_post():
     url_receive = request.form['url_give']
     comment_receive = request.form['comment_give']
 
+    url = 'https://www.podbbang.com/channels/12548/episodes/24396721'
+
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
     data = requests.get(url_receive, headers=headers)
@@ -44,11 +58,19 @@ def podcast_post():
 
     image = soup.select_one('meta[property="og:image"]')['content']
     title = soup.select_one('meta[property="og:title"]')['content']
+    description= soup.select_one('meta[property="og:description"]')['content']
+    date = soup.select_one('#__layout > section > section.app-container > section > section.content-wrapper > section.misc > span.published-at > b')
+    playtime = soup.select_one('#__layout > section > section.app-container > section > section.content-wrapper > section.misc > span.duration > b')
+    like = soup.select_one('#__layout > section > section.app-container > section > section.content-wrapper > section.misc > span.likes')
 
     doc = {
+        'comment':comment_receive,
         'title':title,
         'image':image,
-        'comment':comment_receive
+        'description':description,
+        'date':date,
+        'playtime':playtime,
+        'like':like
     }
     db.podshare.insert_one(doc)
 
@@ -64,6 +86,7 @@ def deleteRow():
     comment_receive = request.form['comment_give']
     db.podshare.delete_one({'comment': comment_receive})
     return jsonify({'msg': '삭제 완료!'})
+
 
 @app.route('/signup')
 def signup():
