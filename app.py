@@ -22,7 +22,9 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+
+    token_receive = request.cookies.get('mytoken')
+    return render_template('index.html', token_receive = token_receive)
 
 #이재혁님 프로그램
 @app.route('/detail')

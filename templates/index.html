@@ -26,7 +26,7 @@
             width: 100%;
             height: 300px;
 
-            background-image: url('{{ url_for("static", filename="logo_1.png") }}');
+            background-image: url('/static/img/logo_1.png');
             background-position: center;
             background-size: contain;
             background-color: black;
@@ -37,7 +37,7 @@
             border: 0;
             background: none;
             display: block;
-            margin: 50px;
+            margin: 50px 10px;
             float:right;
             text-align: right;
             border: 2px solid #3498db;
@@ -114,7 +114,7 @@
     </style>
     <script>
         $(document).ready(function(){
-          listing();
+            listing()
         });
 
         function listing() {
@@ -183,15 +183,23 @@
         function close_box(){
             $('#post-box').hide()
         }
+        function logout(){
+            $.removeCookie("mytoken", { path: '/'});
+            alert('로그아웃!')
+            window.location.reload()
+        }
+
+
     </script>
 </head>
 
 <body>
 <div class="banner">
-    {% if %}
+    {% if token_receive == None %}
         <button onclick="window.location.href ='/signin'">로그인</button>
-    {% elif %}
-        <button onclick="window.location.href ='/'">로그아웃</button>
+    {% elif token_receive != None %}
+        <button onclick="window.location.href ='/signchange'">정보수정</button>
+        <button onclick="logout()">로그아웃</button>
     {% endif %}
 </div>
 <div class="wrap">
