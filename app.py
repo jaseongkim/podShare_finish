@@ -228,7 +228,8 @@ def login_post():
 
         payload = {
             'id': userId_receive,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1)
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1)
+                                                        #배포시 캐시 유지 1시간
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 
