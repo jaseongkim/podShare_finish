@@ -79,13 +79,13 @@ html .signup {
 
 .signup .id input[type="text"] {
   left: 0;
-  width: 295px;
+  width: 294px;
 }
 
 .signup .id button {
   font-size: 15px;
   right: 0;
-  width: 95px;
+  width: 94px;
   height: 50px;
   border-radius: 5px;
   background-color: #a0d1ff;
