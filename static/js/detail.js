@@ -1,4 +1,4 @@
-card_num = typeof (window.location.search.split('=')[1])
+card_num = window.location.search.split('=')[1]
 
 $(document).ready(function () {
     show_reply()
@@ -17,6 +17,7 @@ function save_reply() {
             data: {
                 reply_give: reply,
                 card_give: card_num
+
             },
             success: function (response) {
                 alert(response['msg'])

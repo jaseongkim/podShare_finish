@@ -33,97 +33,96 @@ def podcast_detial():
 
     card_num = request.args.get('card_num')
     detailget = detail.podcastPage(card_num)
-    print(detailget)
     return render_template('detail.html', detailget = detailget)
 
 
 # 김은경님 프로그램
 @app.route("/podcast", methods=["POST"])
 def podcast_post():
-    token_receive = request.cookies.get('mytoken')
-
-    try:
-        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        id = payload['id']
-    except jwt.ExpiredSignatureError:
-        return redirect(url_for("signin"))
-    except jwt.exceptions.DecodeError:
-        return redirect(url_for("signin"))
-
     url_receive = request.form['url_give']
     comment_receive = request.form['comment_give']
-
     url_get = db.podshare.find_one({'url': url_receive})
+    print(url_get)
+    url_confirm_fix_list = ['https:', 'www.podbbang.com', 'channels', 'episodes']
+    url_confirm_user_list = url_receive.split("/")
+    url_confirm = []
+    for i in url_confirm_fix_list:
+        if i not in url_confirm_user_list:
+            url_confirm.append(i)
 
-    if url_get is None:
-        print('동일한 에피소드가 없음')
-        headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
-        data = requests.get(url_receive, headers=headers)
+    if not url_confirm:
+        if url_get is None:
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
+            data = requests.get(url_receive, headers=headers)
 
-        user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.50 Safari/537.36'
-        options = webdriver.ChromeOptions()
-        options.add_argument('--headless')
-        options.add_argument('--no-sandbox')
-        options.add_argument('--disable-dev-shm-usage')
-        options.add_argument('user-agent={0}'.format(user_agent))
-        driver = webdriver.Chrome('./chromedriver', options=options)
-        driver.get(url_receive)
+            user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.50 Safari/537.36'
+            options = webdriver.ChromeOptions()
+            options.add_argument('--headless')
+            options.add_argument('--no-sandbox')
+            options.add_argument('--disable-dev-shm-usage')
+            options.add_argument('user-agent={0}'.format(user_agent))
+            driver = webdriver.Chrome('./chromedriver', options=options)
+            driver.get(url_receive)
 
-        soup = BeautifulSoup(data.text, 'html.parser')
-        soup_1 = BeautifulSoup(driver.page_source, 'html.parser')
+            soup = BeautifulSoup(data.text, 'html.parser')
+            soup_1 = BeautifulSoup(driver.page_source, 'html.parser')
 
-        image = soup.select_one('meta[property="og:image"]')['content']
-        chan_title = soup_1.select_one(
-            '#__layout > section > section.app-container > section > section.content-wrapper > a').get_text().strip()
-        epi_title = soup.select_one('meta[property="og:title"]')['content']
-        description = soup.select_one('meta[property="og:description"]')['content']
-        # new_des = re.sub(r"\s","",description)
-        date = soup_1.select_one(
-            '#__layout > section > section.app-container > section > section.content-wrapper > section.misc > span.published-at > b').get_text()
-        playtime = soup_1.select_one(
-            '#__layout > section > section.app-container > section > section.content-wrapper > section.misc > span.duration > b').get_text()
-        like = soup_1.select_one(
-            '#__layout > section > section.app-container > section > section.content-wrapper > section.misc > span.likes > b').get_text()
-        audio_btn = driver.find_element(By.XPATH,
-                                        '/html/body/div[1]/div/section/section[1]/section/section[1]/section[3]/button')
-        audio_btn.click()
-        driver.implicitly_wait(3)
-        audio = driver.find_element(By.XPATH, '/html/body/div[1]/div/section/section[2]/audio').get_attribute('src')
-        driver.quit()
+            image = soup.select_one('meta[property="og:image"]')['content']
+            chan_title = soup_1.select_one(
+                '#__layout > section > section.app-container > section > section.content-wrapper > a').get_text().strip()
+            epi_title = soup.select_one('meta[property="og:title"]')['content']
+            description = soup.select_one('meta[property="og:description"]')['content']
+            # new_des = re.sub(r"\s","",description)
+            date = soup_1.select_one(
+                '#__layout > section > section.app-container > section > section.content-wrapper > section.misc > span.published-at > b').get_text()
+            playtime = soup_1.select_one(
+                '#__layout > section > section.app-container > section > section.content-wrapper > section.misc > span.duration > b').get_text()
+            like = soup_1.select_one(
+                '#__layout > section > section.app-container > section > section.content-wrapper > section.misc > span.likes > b').get_text()
+            audio_btn = driver.find_element(By.XPATH,
+                                            '/html/body/div[1]/div/section/section[1]/section/section[1]/section[3]/button')
+            audio_btn.click()
+            driver.implicitly_wait(3)
+            audio = driver.find_element(By.XPATH, '/html/body/div[1]/div/section/section[2]/audio').get_attribute('src')
+            driver.quit()
 
-        # url_receive 파라미터 분리
-        card_num = url_receive.split("/")[-1]
+            # url_receive 파라미터 분리
+            card_num = url_receive.split("/")[-1]
 
-        doc = {
-            'id': id,
-            'url': url_receive,
-            'comment': comment_receive,
-            'chan_title': chan_title,
-            'epi_title': epi_title,
-            'image': image,
-            'description': description,
-            'date': date,
-            'playtime': playtime,
-            'like': like,
-            'audio': audio,
-            'card_num': card_num
-        }
-        db.podshare.insert_one(doc)
-        return jsonify({'msg': '등록 완료!'})
+            doc = {
+                'url': url_receive,
+                'comment': comment_receive,
+                'chan_title': chan_title,
+                'epi_title': epi_title,
+                'image': image,
+                'description': description,
+                'date': date,
+                'playtime': playtime,
+                'like': like,
+                'audio': audio,
+                'card_num': card_num
+            }
+            # db.podshare.insert_one(doc)
+            return jsonify({'msg': '등록 완료!'})
 
+        else:
+            url_check = url_get['url']
+            if url_receive == url_check:
+                return jsonify({'msg': '동일한 에피소드가 등록되어있습니다!'})
     else:
-        url_check = url_get['url']
-        if url_receive == url_check:
-            return jsonify({'msg': '동일한 에피소드가 등록되어있습니다!'})
+        return jsonify({'msg': 'URL 형식이 맞지않습니다!'})
 
 
 @app.route("/podcast", methods=["GET"])
 def podcast_get():
-
+    token_receive = request.cookies.get('mytoken')
     podcast_list = list(db.podshare.find({}, {'_id': False}))
 
-    return jsonify({'all_podcast':podcast_list})
+    if token_receive != None:
+        return jsonify({'all_podcast': podcast_list})
+    else:
+        return jsonify({'all_podcast': podcast_list, 'msg': 'None'})
 
 @app.route('/api/delete', methods=['POST'])
 def deleteRow():
@@ -208,8 +207,6 @@ def modifyAccount():
         password = request.form['password']
         email = request.form['email']
         phone = request.form['phone']
-
-        print(id, password, email, phone)
 
         user = db.account.find_one({'id': id})
 
