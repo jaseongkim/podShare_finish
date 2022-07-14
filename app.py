@@ -34,7 +34,7 @@ def podcast_detial():
     card_num = request.args.get('card_num')
     detailget = detail.podcastPage(card_num)
     print(detailget)
-    return render_template('detail.html', detailget = detailget, card_num=card_num)
+    return render_template('detail.html', detailget = detailget)
 
 #김은경님 프로그램
 @app.route("/podcast", methods=["POST"])
@@ -106,6 +106,7 @@ def deleteRow():
     num_receive = request.form['num_give']
 
     db.podshare.delete_one({'card_num': num_receive})
+    db.replydb.delete_many({'card_num': num_receive})
 
     return jsonify({'msg': '삭제 완료!'})
 
