@@ -16,6 +16,7 @@
                         let image = rows[i]['image']
                         let chan_title = rows[i]['chan_title']
                         let num = rows[i]['card_num']
+                        let id = rows[i]['id']
 
                         let temp_html = `<div class="col">
                                             <div class="card h-100">
@@ -24,6 +25,7 @@
                                                     <a href="/detail?card_num=${num}"> <h5 class="card-title">${epi_title}</h5></a>
                                                     <p class="card-text">${chan_title}</p>
                                                     <p class="mycomment">"${comment}"</p>
+                                                    <p class="mycomment">작성자 : ${id}</p>
                                                     <p><button type="button" class="btn btn-outline-dark" onclick="deleteRow(${num})">삭제</button></p>
                                                </div>
                                             </div>
