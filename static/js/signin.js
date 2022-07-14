@@ -7,7 +7,7 @@
              } else {
                 $.ajax({
                     type: "POST",
-                    url: "/api/login",
+                    url: "/signin/login",
                     data: {userId_give: userId , userPw_give: userPw},
                     success: function (response) {
                         if (response['result'] == 'success') {

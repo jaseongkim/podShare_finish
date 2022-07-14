@@ -1,8 +1,6 @@
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for  # 기본 라이브러리들
-from pymongo import MongoClient  # 디비 연결 라이브러리
+from pymongo import MongoClient
 import certifi
-import detail
-
 import requests
 from bs4 import BeautifulSoup
 import hashlib
@@ -21,22 +19,29 @@ client = MongoClient('mongodb+srv://test:sparta@cluster0.u82lpnm.mongodb.net/Clu
 db = client.db8bteam4
 app = Flask(__name__)
 
+
+def podcastPage(card_num):
+    type_change = str(card_num)
+    return podcastPage_get(type_change)
+
+
+def podcastPage_get(type_change):
+    return db['podshare'].find_one({'card_num': type_change}, {'_id': False})
+
+
 @app.route('/')
 def home():
-
     token_receive = request.cookies.get('mytoken')
     return render_template('index.html', token_receive = token_receive)
 
-#이재혁님 프로그램
+
 @app.route('/detail')
 def podcast_detial():
-
     card_num = request.args.get('card_num')
-    detailget = detail.podcastPage(card_num)
+    detailget = podcastPage(card_num)
     return render_template('detail.html', detailget = detailget)
 
 
-# 김은경님 프로그램
 @app.route("/podcast", methods=["POST"])
 def podcast_post():
 
@@ -53,7 +58,6 @@ def podcast_post():
     url_receive = request.form['url_give']
     comment_receive = request.form['comment_give']
     url_get = db.podshare.find_one({'url': url_receive})
-    print(url_get)
     url_confirm_fix_list = ['https:', 'www.podbbang.com', 'channels', 'episodes']
     url_confirm_user_list = url_receive.split("/")
     url_confirm = []
@@ -84,7 +88,6 @@ def podcast_post():
                 '#__layout > section > section.app-container > section > section.content-wrapper > a').get_text().strip()
             epi_title = soup.select_one('meta[property="og:title"]')['content']
             description = soup.select_one('meta[property="og:description"]')['content']
-            # new_des = re.sub(r"\s","",description)
             date = soup_1.select_one(
                 '#__layout > section > section.app-container > section > section.content-wrapper > section.misc > span.published-at > b').get_text()
             playtime = soup_1.select_one(
@@ -98,7 +101,6 @@ def podcast_post():
             audio = driver.find_element(By.XPATH, '/html/body/div[1]/div/section/section[2]/audio').get_attribute('src')
             driver.quit()
 
-            # url_receive 파라미터 분리
             card_num = url_receive.split("/")[-1]
 
             doc = {
@@ -259,15 +261,13 @@ def deleteAccount():
 
     return jsonify(({'msg': '탈퇴 완료.'}))
 
-##################################################################################################
-# 로그인 / 댓글 시작
-# 로그인
+
 @app.route('/signin')
 def signin():
     return render_template('signin.html')
 
 
-@app.route('/api/login', methods=['POST'])
+@app.route('/signin/login', methods=['POST'])
 def login_post():
     userId_receive = request.form['userId_give']
     userPw_receive = request.form['userPw_give']
@@ -281,24 +281,21 @@ def login_post():
         payload = {
             'id': userId_receive,
             'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1)
-                                                        #배포시 캐시 유지 1시간
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 
-        # token을 줍니다.
         return jsonify({'result': 'success', 'token': token})
-    # 찾지 못하면
     else:
         return jsonify({'result': 'fail', 'msg': "아이디/비밀번호가 일치하지 않습니다."})
 
 
-#  댓글
 @app.route("/reply", methods=["GET"])
 def reply_get():
 
     all_list = list(db.replydb.find({}, {'_id': False}))
 
     return jsonify({'list': all_list})
+
 
 @app.route("/reply", methods=["POST"])
 def reply_post():
@@ -324,9 +321,6 @@ def reply_post():
         return jsonify({'msg': "로그인 시간이 만료되었습니다."})
     except jwt.exceptions.DecodeError:
         return jsonify({'msg': "로그인 정보가 없습니다."})
-
-
-# 로그인 / 댓글 끝
 
 
 if __name__ == '__main__':

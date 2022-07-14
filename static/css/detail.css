@@ -1,227 +1,226 @@
-  * {
-            font-family: 'Noto Serif KR', serif;
-        }
+* {
+  font-family: 'Gowun Dodum', sans-serif;
+}
 
-        .dp_background, body {
-            width: 100%;
-            height: 100%;
-            background-color: white;
-            /*background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.90), rgba(0, 0, 0, 0.5)), url('https://raw.githubusercontent.com/MyCatlikesChuru/hanghae99-8b_team4/master/img/4764766.jpg');*/
-            /*background-position: center 25%;*/
-            /*background-size: contain;*/
-            margin: auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        .dp{
-            width: 100%;
+.dp_background, body {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
-        }
+.dp {
+  width: 100%;
 
-        .dp_top {
-            width: 100%;
-            height: 300px;
-            cursor: pointer;
-            background-image: url('/static/img/logo_1.png');
-            background-position: center;
-            background-size: contain;
-            background-color: black;
-            background-repeat: no-repeat;
-        }
+}
 
-        .dp_center {
-            width: 1200px;
-            height: 1000px;
-            margin: 0px auto;
-            position: relative;
-        }
+.dp_top {
+  width: 100%;
+  height: 300px;
+  cursor: pointer;
+  background-image: url('/static/img/logo.png');
+  background-position: center;
+  background-size: contain;
+  background-color: black;
+  background-repeat: no-repeat;
+}
 
-        .dp_img {
-            width: 700px;
-            height: 400px;
-            left: 0px;
-            top: 0px;
-            position: absolute;
-        }
+.dp_center {
+  width: 1200px;
+  height: 1000px;
+  margin: 0px auto;
+  position: relative;
+}
 
-        .dp_img_picture {
-            width: 680px;
-            height: 400px;
-            left: 10px;
-            /*overflow = 초과된 사진을 짜른다*/
-            overflow: hidden;
-            position: relative;
-        }
+.dp_img {
+  width: 700px;
+  height: 400px;
+  left: 0px;
+  top: 0px;
+  position: absolute;
+}
 
-        .dp_img_picture > img {
-            position: absolute;
+.dp_img_picture {
+  width: 680px;
+  height: 400px;
+  left: 10px;
+  /*overflow = 초과된 사진을 짜른다*/
+  overflow: hidden;
+  position: relative;
+}
 
-            /*어떤 사진의 사이즈던 width,height 100%로 맞춘다*/
-            width: 100%;
+.dp_img_picture > img {
+  position: absolute;
 
-            /*top,left,transform 이미지를 dp_img_picture의 width,height크기의 중앙에 놓는다*/
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
+  /*어떤 사진의 사이즈던 width,height 100%로 맞춘다*/
+  width: 100%;
 
-        .dp_audio {
-            width: 500px;
-            height: 200px;
-            left: 700px;
-            top: 0px;
-            position: absolute;
-        }
+  /*top,left,transform 이미지를 dp_img_picture의 width,height크기의 중앙에 놓는다*/
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
-        .dp_audio_box {
-            width: 300px;
-            height: 55px;
-            /*background-color: #8aff47;*/
-            left: 100px;
-            top: 60px;
-            position: absolute;
-        }
+.dp_audio {
+  width: 500px;
+  height: 200px;
+  left: 700px;
+  top: 0px;
+  position: absolute;
+}
 
-        .dp_info {
-            width: 700px;
-            height: 200px;
-            left: 0px;
-            top: 400px;
-            position: absolute;
-        }
+.dp_audio_box {
+  width: 300px;
+  height: 55px;
+  /*background-color: #8aff47;*/
+  left: 100px;
+  top: 60px;
+  position: absolute;
+}
 
-        .dp_info_title1 {
-            width: 600px;
-            height: 30px;
-            left: 20px;
-            top: 15px;
-            position: absolute;
-            color: #0094eb;
-            font-family: "Spoqa Han Sans Neo", "sans-serif";
-            -webkit-text-size-adjust: 100%;
-            -webkit-font-smoothing: antialiased;
-        }
+.dp_info {
+  width: 700px;
+  height: 200px;
+  left: 0px;
+  top: 400px;
+  position: absolute;
+}
 
-        .dp_info_title2 {
-            width: 600px;
-            height: 30px;
-            left: 20px;
-            top: 40px;
-            position: absolute;
-            color: black;
-            font-family: "Spoqa Han Sans Neo", "sans-serif";
-            -webkit-text-size-adjust: 100%;
-            -webkit-font-smoothing: antialiased;
-        }
+.dp_info_title1 {
+  width: 600px;
+  height: 30px;
+  left: 20px;
+  top: 15px;
+  position: absolute;
+  color: #0094eb;
+  font-family: "Spoqa Han Sans Neo", "sans-serif";
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+}
 
-        .dp_info_box {
-            width: 600px;
-            height: 20px;
-            margin-bottom:10px;
-            left: 25px;
-            top :100px;
-            font-weight: 900;
-            font-size: 15px;
-            color: #8a909e;
-            position: absolute;
-            font-family: "Spoqa Han Sans Neo", "sans-serif";
-            -webkit-text-size-adjust: 100%;
-            -webkit-font-smoothing: antialiased;
-        }
+.dp_info_title2 {
+  width: 600px;
+  height: 30px;
+  left: 20px;
+  top: 40px;
+  position: absolute;
+  color: black;
+  font-family: "Spoqa Han Sans Neo", "sans-serif";
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+}
 
-        .dp_info_date {
-            width: 75px;
-            height: 20px;
-            display: inline-block;
-            float: left;
-        }
+.dp_info_box {
+  width: 600px;
+  height: 20px;
+  margin-bottom: 10px;
+  left: 25px;
+  top: 100px;
+  font-weight: 900;
+  font-size: 15px;
+  color: #8a909e;
+  position: absolute;
+  font-family: "Spoqa Han Sans Neo", "sans-serif";
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+}
 
-        .dp_info_playtime {
-            width: 50px;
-            height: 20px;
-            display: inline-block;
-            float: left;
-        }
+.dp_info_date {
+  width: 75px;
+  height: 20px;
+  display: inline-block;
+  float: left;
+}
 
-        .dp_info_like {
-            width: 100px;
-            height: 20px;
-            display: inline-block;
-            float: left;
-        }
+.dp_info_playtime {
+  width: 50px;
+  height: 20px;
+  display: inline-block;
+  float: left;
+}
 
-        .dp_info_dot {
-            width: 20px;
-            height: 10px;
-            display: inline-block;
-            float: left;
-        }
+.dp_info_like {
+  width: 100px;
+  height: 20px;
+  display: inline-block;
+  float: left;
+}
 
-        .dp_info_article {
+.dp_info_dot {
+  width: 20px;
+  height: 10px;
+  display: inline-block;
+  float: left;
+}
 
-            width: 675px;
-            height: 250px;
-            left: 20px;
-            top: 130px;
-            position: absolute;
-        }
+.dp_info_article {
 
-        .content {
+  width: 675px;
+  height: 250px;
+  left: 20px;
+  top: 130px;
+  position: absolute;
+}
 
-            height: 300px;
-            overflow-y: auto;
-            text-align: left;
-            word-break: break-all;
-            white-space: pre-line;
-            font-size: 15px;
-            color: black;
-            line-height: 22px;
-            letter-spacing: -.2px;
-            margin: 0;
-            padding: 0;
-            vertical-align: top;
-            zoom: 1;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-            font-family: "Spoqa Han Sans Neo", "sans-serif";
-            -webkit-text-size-adjust: 100%;
-            -webkit-font-smoothing: antialiased;
-        }
+.content {
 
-        .dp_reply {
-            width: 500px;
-            /*height: 1000px;*/ /*스크롤 바 생성을 위해 삭제*/
-            left: 700px;
-            top: 180px;
-            position: absolute;
-        }
+  height: 300px;
+  overflow-y: auto;
+  text-align: left;
+  word-break: break-all;
+  white-space: pre-line;
+  font-size: 15px;
+  color: black;
+  line-height: 22px;
+  letter-spacing: -.2px;
+  margin: 0;
+  padding: 0;
+  vertical-align: top;
+  zoom: 1;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  font-family: "Spoqa Han Sans Neo", "sans-serif";
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+}
 
-         /* 댓글 CSS */
-        .reply {
-            width: 95%;
-            max-width: 500px;
-            margin: 20px auto 20px auto;
+.dp_reply {
+  width: 500px;
+  /*height: 1000px;*/ /*스크롤 바 생성을 위해 삭제*/
+  left: 700px;
+  top: 180px;
+  position: absolute;
+}
 
-            box-shadow: 0px 0px 3px 0px black;
-            padding: 20px;
-        }
+/* 댓글 CSS */
+.reply {
+  width: 95%;
+  max-width: 500px;
+  margin: 20px auto 20px auto;
 
-        .reply > button {
-            margin-top: 15px;
-        }
+  box-shadow: 0px 0px 3px 0px black;
+  padding: 20px;
+}
 
-        .mycards {
-            width: 95%;
-            height: 420px;
-            max-width: 500px;
-            margin: auto;
-            overflow-y: auto;
-        }
+.reply > button {
+  margin-top: 15px;
+}
 
-        .mycards > .card {
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-         /* 댓글 CSS 끝*/
+.mycards {
+  width: 95%;
+  height: 420px;
+  max-width: 500px;
+  margin: auto;
+  overflow-y: auto;
+}
+
+.mycards > .card {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* 댓글 CSS 끝*/

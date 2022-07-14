@@ -1,110 +1,125 @@
 * {
-    font-family: 'Gowun Dodum', sans-serif;
+  font-family: 'Gowun Dodum', sans-serif;
 }
 
 .card-body a:link {
-   color: black;
-   text-decoration: none;
+  color: black;
+  text-decoration: none;
 }
 
 .card-body a:visited {
-   color: #cccccc;
-   text-decoration: none;
+  color: #cccccc;
+  text-decoration: none;
 }
 
 .card-body a:hover {
-   color: #db1852;
-   text-decoration: none;
+  color: #db1852;
+  text-decoration: none;
 }
 
 .banner {
-    width: 100%;
-    height: 300px;
+  width: 100%;
+  height: 300px;
 
-    background-image: url('/static/img/logo_1.png');
-    background-position: center;
-    background-size: contain;
-    background-color: black;
-    background-repeat: no-repeat;
-
+  background-image: url('/static/img/logo.png');
+  background-position: center;
+  background-size: contain;
+  background-color: black;
+  background-repeat: no-repeat;
 }
 
-.banner > button {
-    border: 0;
-    background: none;
-    display: block;
-    margin: 50px 10px;
-    float: right;
-    text-align: right;
-    border: 2px solid #3498db;
-    padding: 5px 30px;
-    outline: none;
-    color: white;
-    border-radius: 20px;
-    transition: 0.25s;
-    cursor: pointer;
+.banner .button {
+  height: 200px;
+  float: right;
 }
 
+.banner .button button {
+  border: 0;
+  background: none;
+  display: block;
+  margin: 15px 15px;
+  float: left;
+  text-align: right;
+  border: 2px solid #3498db;
+  padding: 5px 30px;
+  outline: none;
+  color: white;
+  border-radius: 20px;
+  transition: 0.25s;
+  cursor: pointer;
+}
+
+.banner .button .btn-modify {
+  margin-right: 5px;
+}
+
+.banner .button button:hover {
+  border: 0;
+  background: #3498db;
+  border: 2px solid white;
+  color: black;
+}
 
 .wrap {
-    background-color: white;
-    min-height: 100vh;
-    padding-bottom: 50px;
+  background-color: white;
+  min-height: 100vh;
+  padding-bottom: 50px;
 }
 
 .wrap > button {
-    width: 200px;
-    height: 50px;
-    margin: auto;
+  width: 200px;
+  height: 50px;
+  margin: auto;
 
-    background-color: transparent;
-    color: black;
+  background-color: transparent;
+  color: black;
 
-    border-radius: 50px;
-    border: 1px solid black;
+  border-radius: 50px;
+  border: 1px solid black;
 
-    margin-top: 10px;
+  margin-top: 10px;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .wrap > button:hover {
-    border: 2px solid white;
+  color: white;
+  background-color: black;
+  border: white solid 2px;
 }
 
 .mycomment {
-    color: gray;
+  color: gray;
 }
 
 .mycards {
-    margin: 20px auto 0px auto;
-    width: 95%;
-    max-width: 1200px;
+  margin: 20px auto 0px auto;
+  width: 95%;
+  max-width: 1200px;
 }
 
 .mypost {
-    width: 95%;
-    max-width: 500px;
-    margin: 20px auto 0px auto;
-    padding: 20px;
-    box-shadow: 0px 0px 3px 0px gray;
+  width: 95%;
+  max-width: 500px;
+  margin: 20px auto 0px auto;
+  padding: 20px;
+  box-shadow: 0px 0px 3px 0px gray;
 
-    display: none;
+  display: none;
 }
 
 .mybtns {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .mybtns > button {
-    margin-right: 10px;
+  margin-right: 10px;
 }

@@ -1,68 +1,73 @@
-        body{
-            margin : 0;
-            padding:  0;
-            font-family: 'Gowun Dodum', sans-serif;
-            background-color: black;
-        }
+* {
+  font-family: 'Gowun Dodum', sans-serif;
+}
 
-        .pic{
-            width: 300px;
-            height: 368px;
-            position: absolute;
-            top: 50%;
-            right: 50%;
-            transform: translate(-0%, -50%);
+body {
+  margin: 0;
+  padding: 0;
+  background-color: black;
+}
 
-            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/static/img/background.jpg");
-            background-position: center;
-            background-size: cover;
-        }
+.pic {
+  width: 300px;
+  height: 368px;
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(-0%, -50%);
 
-        .box {
-            width: 300px;
-            padding: 40px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-0%, -50%);
-            background-color: black;
-            text-align: center;
-        }
+  background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/static/img/background.jpg");
+  background-position: center;
+  background-size: cover;
+}
 
-        .box input[type="text"], .box input[type="password"]{
-            border:0;
-            background: none;
-            display: block;
-            margin: 20px auto;
-            text-align: center;
-            border: 2px solid #3498db;
-            padding: 14px 10px;
-            width: 150px;
-            outline: none;
-            color: white;
-            border-radius: 20px;
-            transition: 0.25s;
-        }
+.box {
+  width: 300px;
+  padding: 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-0%, -50%);
+  background-color: black;
+  text-align: center;
+}
 
-         .box input[type="text"]:focus, .box input[type="password"]:focus{
-             width: 200px;
-         }
+.box input[type="text"], .box input[type="password"] {
+  border: 0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #3498db;
+  padding: 14px 10px;
+  width: 150px;
+  outline: none;
+  color: white;
+  border-radius: 20px;
+  transition: 0.25s;
+}
 
-        .box >button {
-            border:0;
-            background: none;
-            display: block;
-            margin: 20px auto;
-            text-align: center;
-            border: 2px solid #3498db;
-            padding: 5px 30px;
+.box input[type="text"]:focus, .box input[type="password"]:focus {
+  width: 200px;
+}
 
-            outline: none;
-            color: white;
-            border-radius: 20px;
-            transition: 0.25s;
-        }
+.box > button {
+  width: 150px;
+  height: 35px;
+  border: 0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #3498db;
+  padding: 5px 30px;
 
-        .box > button:hover{
-            border: 4px solid;
-        }
+  outline: none;
+  color: white;
+  border-radius: 20px;
+  transition: 0.25s;
+}
+
+.box > button:hover {
+  border: 4px solid;
+}
