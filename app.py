@@ -39,6 +39,17 @@ def podcast_detial():
 # 김은경님 프로그램
 @app.route("/podcast", methods=["POST"])
 def podcast_post():
+
+    token_receive = request.cookies.get('mytoken')
+
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        id = payload['id']
+    except jwt.ExpiredSignatureError:
+        return redirect(url_for("signin"))
+    except jwt.exceptions.DecodeError:
+        return redirect(url_for("signin"))
+
     url_receive = request.form['url_give']
     comment_receive = request.form['comment_give']
     url_get = db.podshare.find_one({'url': url_receive})
@@ -91,6 +102,7 @@ def podcast_post():
             card_num = url_receive.split("/")[-1]
 
             doc = {
+                'id':id,
                 'url': url_receive,
                 'comment': comment_receive,
                 'chan_title': chan_title,
@@ -103,7 +115,8 @@ def podcast_post():
                 'audio': audio,
                 'card_num': card_num
             }
-            # db.podshare.insert_one(doc)
+
+            db.podshare.insert_one(doc)
             return jsonify({'msg': '등록 완료!'})
 
         else:
@@ -126,6 +139,7 @@ def podcast_get():
 
 @app.route('/api/delete', methods=['POST'])
 def deleteRow():
+
     token_receive = request.cookies.get('mytoken')
 
     try:
@@ -137,6 +151,7 @@ def deleteRow():
         return redirect(url_for("signin"))
 
     num_receive = request.form['num_give']
+
     podcast = db.podshare.find_one({'card_num': num_receive})
 
     if id == podcast['id']:
