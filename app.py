@@ -14,7 +14,7 @@ from selenium.webdriver.common.by import By
 SECRET_KEY = 'SPARTA'
 
 ca = certifi.where()
-client = MongoClient('mongodb+srv://test:sparta@cluster0.u82lpnm.mongodb.net/Cluster0?retryWrites=true&w=majority',
+client = MongoClient('mongodb+srv://test:<비밀번호넣기>@cluster0.u82lpnm.mongodb.net/Cluster0?retryWrites=true&w=majority',
                      tlsCAFile=ca)
 db = client.db8bteam4
 app = Flask(__name__)
